@@ -1,9 +1,11 @@
 flussonic python api
 --------------------
 
+```bash
 git clone https://github.com/gonzafirewall/flusspy
 cd flusspy
 pip install -r reqs.txt
+`````
 
 ```python
 from flusspy import Flussonic
