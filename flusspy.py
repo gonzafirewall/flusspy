@@ -1,6 +1,8 @@
 import requests
 from requests import Session
 
+
+
 class Stream(object):
     """represent a stream in flussonic"""
     def __init__(self, data):
@@ -68,6 +70,28 @@ class Flussonic(object):
     def get_config(self):
         """get flussonic config"""
         return self._get("get_config")
+
+def prepare(config):
+    import getpass
+    endpoint = raw_input("Please fill your flussonic api endpoint: ")
+    username = raw_input("Username: ")
+    password = getpass.getpass("Password: ")
+    config.add_section("FLUSSPY")
+    config.set("FLUSSPY", "username", username)
+    config.set("FLUSSPY", "password", password)
+    config.set("FLUSSPY", "endpoint", endpoint)
+    config.write(open("/etc/flusspy/flusspy.conf", "w+"))
+    return True
+
+def cmd(args):
+    from ConfigParser import ConfigParser
+    import os
+    config = ConfigParser()
+    try:
+        config.readfp(open("/etc/flusspy/flusspy.conf"))
+    except IOError:
+        prepare(config)
+        print "Configured Succesfully see /etc/flusspy/flusspy.conf"
 
 if __name__ == "__main__":
     flu = Flussonic(URL, AUTH)

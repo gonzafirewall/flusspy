@@ -1,0 +1,7 @@
+#!/usr/bin/env python
+
+import flusspy
+import sys
+
+if __name__ == "__main__":
+    flusspy.cmd(sys.argv[1:])
